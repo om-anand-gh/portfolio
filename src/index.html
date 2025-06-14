@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Under Construction</title>
   <style>
+    :root {
+      --bg-color: #f9f9f9;
+      --text-color: #333;
+    }
+
+    body.dark {
+      --bg-color: #1e1e1e;
+      --text-color: #f0f0f0;
+    }
+
     body {
       font-family: sans-serif;
       display: flex;
@@ -12,15 +22,37 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #f9f9f9;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+      flex-direction: column;
     }
+
     h1 {
-      color: #333;
       font-size: 2rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #555;
+      color: #fff;
     }
   </style>
 </head>
-<body>
+<body class="dark">
   <h1>🚧 This site is under construction</h1>
+  <button id="darkModeToggle">Toggle Dark Mode</button>
+
+  <script>
+    const toggle = document.getElementById('darkModeToggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+  </script>
 </body>
 </html>
