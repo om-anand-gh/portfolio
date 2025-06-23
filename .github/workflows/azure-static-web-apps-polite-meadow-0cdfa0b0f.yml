@@ -33,8 +33,6 @@ jobs:
           output_location: "out" # Built app content directory - optional
           is_static_export: true
           skip_api_build: true
-          build_timeout_in_minutes: 3
-          verbose: true
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
