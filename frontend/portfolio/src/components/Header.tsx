@@ -10,7 +10,7 @@ import { GithubLogoIcon, LinkedinLogoIcon } from "@/assets/icons";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-black flex items-center justify-between px-4 py-2 shadow-sm">
+    <header className="sticky top-0 z-50 flex items-center justify-between bg-white px-4 py-2 shadow-sm dark:bg-black">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>

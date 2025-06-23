@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="text-center py-4 text-sm text-muted-foreground">
+    <footer className="text-muted-foreground py-4 text-center text-sm">
       Backend wizardry inside, frontend experiments outside ~ ©
       {new Date().getFullYear()} Om Anand
     </footer>
