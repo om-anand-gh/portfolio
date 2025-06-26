@@ -1,3 +1,7 @@
 "use client";
 
-export { GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
+export {
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+  EnvelopeSimpleIcon,
+} from "@phosphor-icons/react";
