@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function Home() {
   return (
     <div>
-      <section className="mx-auto mt-12 max-w-3xl space-y-6 px-8">
+      <section className="mx-auto mt-12 max-w-7xl space-y-6 px-8 sm:px-16">
         {/* Personal Intro */}
         <div className="space-y-2">
           <h1 className="text-4xl font-bold">Om Anand</h1>
