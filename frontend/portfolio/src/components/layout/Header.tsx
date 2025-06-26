@@ -6,7 +6,11 @@ import {
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 import { ModeToggle } from "@/components/layout/ModeToggle";
-import { GithubLogoIcon, LinkedinLogoIcon } from "@/assets/icons";
+import {
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+  EnvelopeSimpleIcon,
+} from "@/assets/icons";
 
 export function Header() {
   return (
@@ -36,6 +40,11 @@ export function Header() {
             rel="noopener noreferrer"
           >
             <LinkedinLogoIcon size={24} />
+          </a>
+        </Button>
+        <Button asChild aria-label="Email Om Anand" variant="outline">
+          <a href="mailto:contact@omanand.dev" rel="noopener noreferrer">
+            <EnvelopeSimpleIcon size={24} />
           </a>
         </Button>
         <ModeToggle />
