@@ -1,0 +1,48 @@
+name: Trigger auto deployment for aca-portfolio-dev
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ feat/init-django-project ]
+    paths:
+    - '**'
+    - '.github/workflows/aca-portfolio-dev-AutoDeployTrigger-69faeada-559f-4851-8c58-fc9136fac501.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ACAPORTFOLIODEV_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.ACAPORTFOLIODEV_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.ACAPORTFOLIODEV_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: 
+          registryUsername: ${{ secrets.ACAPORTFOLIODEV_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.ACAPORTFOLIODEV_REGISTRY_PASSWORD }}
+          containerAppName: aca-portfolio-dev
+          resourceGroup: rg-portfolio-omananddev
+          imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
