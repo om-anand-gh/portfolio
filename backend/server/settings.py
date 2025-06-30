@@ -35,6 +35,8 @@ DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", default="localhost,127.0.0.1")
 ALLOWED_HOSTS = ALLOWED_HOSTS.split(",")
 
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS", default="")
+CSRF_TRUSTED_ORIGINS = CSRF_TRUSTED_ORIGINS.split(",")
 
 # Application definition
 
