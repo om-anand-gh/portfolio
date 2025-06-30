@@ -1,0 +1,44 @@
+name: Trigger auto deployment for aca-portfolio-dev
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/aca-portfolio-dev-AutoDeployTrigger-e1691c0f-7c06-42bd-83ff-5147d5982797.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.ACAPORTFOLIODEV_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}backend
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: crportfolio.azurecr.io
+          registryUsername: ${{ secrets.ACAPORTFOLIODEV_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.ACAPORTFOLIODEV_REGISTRY_PASSWORD }}
+          containerAppName: aca-portfolio-dev
+          resourceGroup: rg-portfolio-omananddev
+          imageToBuild: crportfolio.azurecr.io/aca-portfolio-dev:${{ github.sha }}
+          
+            
+
+     
+
