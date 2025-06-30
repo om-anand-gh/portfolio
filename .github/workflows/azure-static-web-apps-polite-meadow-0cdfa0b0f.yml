@@ -11,6 +11,9 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+    paths:
+    - 'frontend/**'
+    - '.github/workflows/azure-static-web-apps-polite-meadow-0cdfa0b0f.yml'
 
 permissions:
   id-token: write
