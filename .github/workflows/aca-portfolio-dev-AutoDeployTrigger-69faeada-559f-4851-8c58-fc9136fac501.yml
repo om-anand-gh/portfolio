@@ -4,8 +4,8 @@ name: Trigger auto deployment for aca-portfolio-dev
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
-      [ feat/init-django-project ]
+    branches:
+      - main
     paths:
     - 'backend/**'
     - '.github/workflows/aca-portfolio-dev-AutoDeployTrigger-69faeada-559f-4851-8c58-fc9136fac501.yml'
