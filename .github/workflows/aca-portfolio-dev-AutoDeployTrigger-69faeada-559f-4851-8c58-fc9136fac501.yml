@@ -27,20 +27,18 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.ACAPORTFOLIODEV_AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.ACAPORTFOLIODEV_AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.ACAPORTFOLIODEV_AZURE_SUBSCRIPTION_ID }}
-
+          creds: ${{ secrets.ACAPORTFOLIODEV_AZURE_CREDENTIALS }}
+          
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: backend
           dockerfilePath: Dockerfile
-          registryUrl: crportfolio.azurecr.io
-          registryUsername: ${{ secrets.ACAPORTFOLIODEV_REGISTRY_USERNAME }}
-          registryPassword: ${{ secrets.ACAPORTFOLIODEV_REGISTRY_PASSWORD }}
+          registryUrl: docker.io
+          registryUsername: ${{ secrets.ACA_DOCKERHUB_USERNAME }}
+          registryPassword: ${{ secrets.ACA_DOCKERHUB_PAT }}
           containerAppName: aca-portfolio-dev
           resourceGroup: rg-portfolio-omananddev
-          imageToBuild: crportfolio.azurecr.io/aca-portfolio-dev:${{ github.sha }}
+          imageToBuild: docker.io/omananddev/portfolio-backend:${{ github.sha }}
 
 
