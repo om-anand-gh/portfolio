@@ -1,4 +1,4 @@
-name: Trigger auto deployment for aca-portfolio-dev
+name: Azure Container Apps CI/CD
 
 # When this action will be executed
 on:
