@@ -42,5 +42,5 @@ jobs:
           output_location: "out" # Built app content directory
           is_static_export: true
           skip_api_build: true
-          deployment_environment: ${{ github.event_name == 'push' && 'Production' || 'dev' }}
+          deployment_environment: "dev"
           ###### End of Repository/Build Configurations ######
