@@ -43,7 +43,7 @@ jobs:
       - name: Build Next.js static site
         run: |
           cd frontend/portfolio
-          npm run build
+          NEXT_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }} npm run build
 
       - name: Install SWA CLI
         run: npm install -g @azure/static-web-apps-cli
