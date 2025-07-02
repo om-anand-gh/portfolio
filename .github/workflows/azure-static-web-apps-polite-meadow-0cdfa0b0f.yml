@@ -3,7 +3,7 @@ name: Azure Static Web Apps CI/CD
 on:
   push:
     branches:
-      - "**"
+      - "main"
     paths:
       - "frontend/**"
       - ".github/workflows/azure-static-web-apps-polite-meadow-0cdfa0b0f.yml"
@@ -53,5 +53,7 @@ jobs:
           SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_MEADOW_0CDFA0B0F }}
         run: |
           cd frontend/portfolio
+          ENVIRONMENT=$(if [[ "${{ github.event_name }}" == "pull_request" ]]; then echo "dev"; else echo "production"; fi)
           swa deploy ./out \
-            --deployment-token $SWA_CLI_DEPLOYMENT_TOKEN
+            --deployment-token $SWA_CLI_DEPLOYMENT_TOKEN \
+            --env $ENVIRONMENT
