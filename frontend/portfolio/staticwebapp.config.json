@@ -1,10 +1,4 @@
 {
-  "routes": [
-    {
-      "route": "/favicon.ico",
-      "methods": ["get"]
-    }
-  ],
   "navigationFallback": {
     "rewrite": "index.html",
     "exclude": ["*.{png,jpg,gif,svg}", "*.css"]
