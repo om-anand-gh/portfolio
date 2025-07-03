@@ -94,15 +94,12 @@ WSGI_APPLICATION = "server.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "mssql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": env("DB_NAME", default="DB_NAME"),
         "USER": env("DB_USER", default="DB_USER"),
         "PASSWORD": env("DB_PASSWORD", default="DB_PASSWORD"),
         "HOST": env("DB_HOST", default="DB_HOST"),
         "PORT": env("DB_PORT", default="DB_PORT"),
-        "OPTIONS": {
-            "driver": "ODBC Driver 18 for SQL Server",
-        },
     },
 }
 
