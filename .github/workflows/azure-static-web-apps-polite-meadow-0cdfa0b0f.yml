@@ -14,6 +14,8 @@ on:
     paths:
       - "frontend/**"
       - ".github/workflows/azure-static-web-apps-polite-meadow-0cdfa0b0f.yml"
+  # Allow manual trigger 
+  workflow_dispatch:      
 
 permissions:
   id-token: write
