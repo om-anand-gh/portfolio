@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copy and install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-compile --no-cache-dir -r requirements.txt
+COPY requirements/base.txt .
+RUN pip install --no-compile --no-cache-dir -r base.txt
 
 
 # --- Runtime stage ---

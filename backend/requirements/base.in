@@ -1,0 +1,24 @@
+# requirements/base.in
+
+# Core framework
+Django
+djangorestframework
+
+# Environment configuration
+django-environ
+
+# Production WSGI/ASGI server
+gunicorn
+
+# PostgreSQL support
+psycopg2
+pgvector
+
+# CORS support
+django-cors-headers
+
+# Static file serving
+whitenoise
+
+# Optional dependencies (remove if not always needed)
+openai
