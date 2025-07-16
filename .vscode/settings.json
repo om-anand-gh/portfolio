@@ -1,0 +1,8 @@
+{
+  "pylint.cwd": "${workspaceFolder}/backend/",
+  "pylint.args": [
+    "--load-plugins",
+    "pylint_django",
+    "--django-settings-module=server.settings"
+  ]
+}
