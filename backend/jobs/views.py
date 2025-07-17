@@ -44,25 +44,26 @@ class GenerateEmbeddingView(APIView):
                 continue
 
             lines = [line.strip() for line in content.splitlines() if line.strip()]
-            for i, line in enumerate(lines):
-                try:
-                    response = client.embeddings.create(
-                        input=line,
-                        model=embedding_model,
-                    )
-                except Exception as e:
-                    return Response(
-                        {"error": f"Embedding failed on line {i} of {field}: {str(e)}"},
-                        status=500,
-                    )
+            if not lines:
+                continue
 
-                embedding = response.data[0].embedding
+            try:
+                response = client.embeddings.create(
+                    input=lines,
+                    model=embedding_model,
+                )
+            except Exception as e:
+                return Response(
+                    {"error": f"Embedding failed for field '{field}': {str(e)}"},
+                    status=500,
+                )
 
+            for i, (line, result) in enumerate(zip(lines, response.data)):
                 JobEmbedding.objects.update_or_create(
                     job=job,
                     field=field,
                     line_number=i,
-                    defaults={"content": line, "embedding": embedding},
+                    defaults={"content": line, "embedding": result.embedding},
                 )
                 total_chunks += 1
 
