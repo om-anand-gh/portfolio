@@ -100,13 +100,6 @@ class JobPostingSite(models.Model):
 
 
 class JobPostingLink(models.Model):
-    STATUS_CHOICES = [
-        ("applied", "Applied"),
-        ("redirect", "Redirect"),
-        ("in_progress", "In Progress"),
-        ("not_applicable", "Not Applicable"),
-    ]
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     url = models.CharField(max_length=4096, unique=True, null=False)
     job_posting_site = models.ForeignKey(JobPostingSite, on_delete=models.CASCADE)
@@ -117,9 +110,21 @@ class JobPostingLink(models.Model):
 
 
 class Application(models.Model):
+    STATUS_CHOICES = [
+        ("applied", "Applied"),
+        ("redirect", "Redirect"),
+        ("in_progress", "In Progress"),
+        ("not_applicable", "Not Applicable"),
+    ]
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     job = models.OneToOneField(Job, models.PROTECT)
     applied_date = models.DateField()
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="applied",
+    )
 
     def __str__(self):
         job = self.job

@@ -7,20 +7,27 @@ from jobs.models import Application
 
 class Keyword(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    name = models.CharField(max_length=255, unique=True, null=False)
 
 
-class ExperienceGroup(models.Model):
+class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    name = models.CharField(max_length=255, unique=True, null=False)
 
+class Organization(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    name = models.CharField(max_length=255, unique=True, null=False)
 
 class Experience(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    experience_group = models.ForeignKey(ExperienceGroup, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     keywords = models.ManyToManyField(Keyword)
-
+    organization = models.OneToOneField(Organization, on_delete=models.CASCADE)
+    content = models.TextField()
 
 class Code(models.Model):
     id = models.UUIDField(primary_key=True, null=False)
     application = models.OneToOneField(Application, on_delete=models.PROTECT, null=True)
-    experience_groups = models.ManyToManyField(ExperienceGroup)
+    projects = models.ManyToManyField(Project)
     chat = models.OneToOneField(Session, on_delete=models.PROTECT)
+    code = models.CharField(max_length=100, unique=True, null=False)
