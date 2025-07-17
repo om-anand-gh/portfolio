@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from pgvector.django import VectorField
 
 class Country(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -90,6 +91,25 @@ class Job(models.Model):
             job_str += f" | {location}"
         return job_str
 
+class JobEmbedding(models.Model):
+    FIELD_CHOICES = [
+        ("qualifications", "Qualifications"),
+        ("responsibilities", "Responsibilities"),
+        ("preferred_qualifications", "Preferred Qualifications"),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="embeddings")
+    field = models.CharField(max_length=32, choices=FIELD_CHOICES)
+    line_number = models.PositiveIntegerField()
+    content = models.TextField()
+    embedding = VectorField(dimensions=1536)  # text-embedding-3-small returns 1536-d vectors
+
+    class Meta:
+        unique_together = ("job", "field", "line_number")
+
+    def __str__(self):
+        return f"{self.job.title}, {self.job.company} - {self.field} - {self.line_number}"
     
 class JobPostingSite(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)

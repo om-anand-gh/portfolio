@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.core.exceptions import ValidationError
-from .models import Application, Company, Location, Province, Country, Job, JobPostingLink, JobPostingSite
+from .models import Application, Company, Location, Province, Country, Job, JobPostingLink, JobPostingSite, JobEmbedding
 
 class JobForm(forms.ModelForm):
     class Meta:
@@ -31,4 +31,4 @@ class JobAdmin(admin.ModelAdmin):
     form = JobForm
     inlines = [JobPostingLinkInline]
     
-admin.site.register([Application, Company, Location, Province, Country, JobPostingLink, JobPostingSite])
+admin.site.register([Application, Company, Location, Province, Country, JobPostingLink, JobPostingSite, JobEmbedding])
