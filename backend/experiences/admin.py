@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Code, Experience, ExperienceGroup, Keyword
 
-# Register your models here.
+admin.site.register([Code, Experience, ExperienceGroup, Keyword])
