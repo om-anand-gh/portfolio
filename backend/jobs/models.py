@@ -1,12 +1,15 @@
 import uuid
 from django.db import models
-from pgvector.django import VectorField
+from utils.models import DefaultVectorField
 
 
 class Country(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, unique=True)
     code = models.CharField(max_length=10, unique=True)
+
+    class Meta:
+        verbose_name_plural = "Countries"
 
     def __str__(self):
         if self.code:
@@ -60,6 +63,9 @@ class Company(models.Model):
     about = models.TextField(blank=True, null=True)
     values = models.TextField(blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = "Companies"
+
     def __str__(self):
         return str(self.name)
 
@@ -107,9 +113,7 @@ class JobEmbedding(models.Model):
     field = models.CharField(max_length=32, choices=FIELD_CHOICES)
     line_number = models.PositiveIntegerField()
     content = models.TextField()
-    embedding = VectorField(
-        dimensions=1536
-    )  # text-embedding-3-small returns 1536-d vectors
+    embedding = DefaultVectorField()
 
     class Meta:
         unique_together = ("job", "field", "line_number")

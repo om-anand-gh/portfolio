@@ -32,9 +32,9 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-AZURE_OPENAI_ENDPOINT=env("AZURE_OPENAI_ENDPOINT")
-AZURE_OPENAI_API_KEY=env("AZURE_OPENAI_API_KEY")
-AZURE_OPENAI_EMBEDDING_DEPLOYMENT=env("AZURE_OPENAI_EMBEDDING_DEPLOYMENT")
+AZURE_OPENAI_ENDPOINT = env("AZURE_OPENAI_ENDPOINT")
+AZURE_OPENAI_API_KEY = env("AZURE_OPENAI_API_KEY")
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT = env("AZURE_OPENAI_EMBEDDING_DEPLOYMENT")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", default="localhost,127.0.0.1")
 ALLOWED_HOSTS = ALLOWED_HOSTS.split(",")
@@ -152,3 +152,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Set PGVECTOR vector field dimension based on embedding model (Default: OpenAI - Text Embedding 3 small - 1534)
+PGVECTOR_FIELD_DIMENSIONS = int(env("PGVECTOR_FIELD_DIMENSIONS", default=1534))
