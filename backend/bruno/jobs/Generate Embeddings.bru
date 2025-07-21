@@ -1,0 +1,17 @@
+meta {
+  name: Generate Embeddings
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/jobs/generate-embedding/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "job_id": "ad741055-0ffb-4a3d-babb-b11921551ea0"
+  }
+}
