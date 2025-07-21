@@ -1,19 +1,16 @@
-from django.conf import settings
-from openai import AzureOpenAI
-from pgvector.django import CosineDistance
+from pgvector.django import (
+    MaxInnerProduct,
+    CosineDistance,
+    L1Distance,
+)
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+
+from utils.embedding import generate_embeddings
+from utils.text import extract_lines
 
 from .models import Job, JobEmbedding
 from .serializers import GenerateEmbeddingSerializer, SimilaritySearchSerializer
-
-
-client = AzureOpenAI(
-    api_key=settings.AZURE_OPENAI_API_KEY,
-    api_version="2024-10-21",
-    azure_endpoint=settings.AZURE_OPENAI_ENDPOINT,
-)
 
 
 class GenerateEmbeddingView(APIView):
@@ -21,15 +18,8 @@ class GenerateEmbeddingView(APIView):
         serializer = GenerateEmbeddingSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         job_id = serializer.validated_data["job_id"]
+        job = Job.objects.get(id=job_id)
 
-        try:
-            job = Job.objects.get(id=job_id)
-        except Job.DoesNotExist:
-            return Response(
-                {"detail": "Job not found."}, status=status.HTTP_404_NOT_FOUND
-            )
-
-        embedding_model = settings.AZURE_OPENAI_EMBEDDING_DEPLOYMENT
         fields_to_embed = [
             "qualifications",
             "responsibilities",
@@ -40,36 +30,28 @@ class GenerateEmbeddingView(APIView):
 
         for field in fields_to_embed:
             content = getattr(job, field)
-            if not content:
-                continue
+            lines = extract_lines(content)
 
-            lines = [line.strip() for line in content.splitlines() if line.strip()]
-            if not lines:
-                continue
+            embeddings = generate_embeddings(lines)
 
-            try:
-                response = client.embeddings.create(
-                    input=lines,
-                    model=embedding_model,
-                )
-            except Exception as e:
-                return Response(
-                    {"error": f"Embedding failed for field '{field}': {str(e)}"},
-                    status=500,
-                )
-
-            for i, (line, result) in enumerate(zip(lines, response.data)):
-                JobEmbedding.objects.update_or_create(
+            embeddings_to_create = [
+                JobEmbedding(
                     job=job,
                     field=field,
                     line_number=i,
-                    defaults={"content": line, "embedding": result.embedding},
+                    content=line,
+                    embedding=embedding,
                 )
-                total_chunks += 1
+                for i, (line, embedding) in enumerate(zip(lines, embeddings))
+            ]
+
+            JobEmbedding.objects.bulk_create(
+                embeddings_to_create, ignore_conflicts=True
+            )
+            total_chunks += len(embeddings_to_create)
 
         return Response(
-            {"detail": f"Generated {total_chunks} embeddings for Job '{job.title}'."},
-            status=status.HTTP_200_OK,
+            {"detail": f"Generated {total_chunks} embeddings for Job '{job.title}'."}
         )
 
 
@@ -80,31 +62,48 @@ class SimilaritySearchView(APIView):
 
         question = serializer.validated_data["question"]
         top_n = serializer.validated_data["top_n"]
-        model = settings.AZURE_OPENAI_EMBEDDING_DEPLOYMENT
 
-        try:
-            response = client.embeddings.create(
-                input=question,
-                model=model,
-            )
-        except Exception as e:
-            return Response(
-                {"error": f"Embedding generation failed: {str(e)}"}, status=500
-            )
+        query_embedding = generate_embeddings(question)[0]
 
-        query_embedding = response.data[0].embedding
+        queryset = JobEmbedding.objects.annotate(
+            cosine_similarity=1 - CosineDistance("embedding", query_embedding),
+            max_inner_product=MaxInnerProduct("embedding", query_embedding),
+            l1_distance=L1Distance("embedding", query_embedding),
+        ).all()
 
-        try:
-            results = (
-                JobEmbedding.objects.annotate(
-                    similarity=1 - CosineDistance("embedding", query_embedding)
-                )
-                .order_by("-similarity")[:top_n]
-                .values("content", "field", "line_number", "similarity")
-            )
-        except Exception as e:
-            return Response(
-                {"error": f"Similarity search failed: {str(e)}"}, status=500
-            )
+        results = queryset.values(
+            "id",
+            "content",
+            "field",
+            "line_number",
+            "cosine_similarity",
+            "max_inner_product",
+            "l1_distance",
+        )
 
-        return Response({"results": results}, status=status.HTTP_200_OK)
+        # Sort and rank according to each metric
+        def rank_results(results, key, reverse=True):
+            sorted_items = sorted(results, key=lambda x: x[key], reverse=reverse)
+            ranks = {}
+            for idx, item in enumerate(sorted_items, start=1):
+                ranks[item["id"]] = idx
+            return ranks
+
+        cosine_ranks = rank_results(results, "cosine_similarity", reverse=True)
+        maxip_ranks = rank_results(results, "max_inner_product", reverse=True)
+        l1_ranks = rank_results(
+            results, "l1_distance", reverse=False
+        )  # L1 distance: lower is better
+
+        # Add rank info to each result
+        for r in results:
+            r["rank_cosine_similarity"] = cosine_ranks.get(r["id"], None)
+            r["rank_max_inner_product"] = maxip_ranks.get(r["id"], None)
+            r["rank_l1_distance"] = l1_ranks.get(r["id"], None)
+
+        # Now, slice top_n by cosine_similarity (or whichever you want)
+        results_sorted = sorted(
+            results, key=lambda x: x["cosine_similarity"], reverse=True
+        )[:top_n]
+
+        return Response({"results": results_sorted})
