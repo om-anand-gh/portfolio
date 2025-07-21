@@ -3,15 +3,16 @@ from pgvector.django import (
     CosineDistance,
     L1Distance,
 )
-from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from utils.embedding import generate_embeddings
 from utils.text import extract_lines
 
-from .models import Job, JobEmbedding
-from .serializers import GenerateEmbeddingSerializer, SimilaritySearchSerializer
-
+from .models import Job, JobEmbedding, Country, Province
+from .serializers import GenerateEmbeddingSerializer, SimilaritySearchSerializer, LocationCountrySerializer, LocationProvinceSerializer
 
 class GenerateEmbeddingView(APIView):
     def post(self, request, *args, **kwargs):
@@ -107,3 +108,32 @@ class SimilaritySearchView(APIView):
         )[:top_n]
 
         return Response({"results": results_sorted})
+
+class LocationCountryList(generics.ListCreateAPIView):
+    queryset = Country.objects.all()
+    serializer_class = LocationCountrySerializer
+
+
+class LocationProvinceList(generics.ListAPIView):
+    serializer_class = LocationProvinceSerializer
+    queryset = Province.objects.all()
+
+    def get_queryset(self):
+        country_code = self.request.query_params.get("country_code")
+        if country_code:
+            try:
+                country = Country.objects.get(code__iexact=country_code)
+                return Province.objects.filter(country=country)
+            except Country.DoesNotExist:
+                return Province.objects.none()
+        return super().get_queryset()
+
+    def perform_create(self, serializer):
+        country_code = self.request.data.get("country_code")
+        if not country_code:
+            raise ValidationError({"country_code": "This field is required."})
+        try:
+            country = Country.objects.get(code__iexact=country_code)
+        except Country.DoesNotExist:
+            raise ValidationError({"country_code": f"Country with code '{country_code}' does not exist."})
+        serializer.save(country=country)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Job
+from .models import Job, Country, Province
 
 class GenerateEmbeddingSerializer(serializers.Serializer):
     job_id = serializers.UUIDField()
@@ -15,3 +15,14 @@ class SimilaritySearchSerializer(serializers.Serializer):
     top_n = serializers.IntegerField(
         required=False, default=10, min_value=1, max_value=100
     )
+
+class LocationCountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ['id', 'name', 'code']
+
+class LocationProvinceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Province
+        fields = ['id', 'name', 'code']
+
