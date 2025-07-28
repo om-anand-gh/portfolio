@@ -40,6 +40,7 @@ class Project(models.Model):
     end_date = models.DateField(null=True)
     description = models.TextField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
+    content = models.TextField(default="")
 
     def __str__(self):
         return f"{self.name}, {self.organization}"
@@ -51,7 +52,7 @@ class Experience(models.Model):
     keywords = models.ManyToManyField(Keyword)
     ordering = models.PositiveIntegerField(default=0)
     content = models.TextField()
-    embedding = DefaultVectorField()
+    embedding = DefaultVectorField(null=True, default=None)
 
     def __str__(self):
         return f"{self.project} - {self.ordering} - {self.content}"

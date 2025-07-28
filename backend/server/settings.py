@@ -153,5 +153,5 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Set PGVECTOR vector field dimension based on embedding model (Default: OpenAI - Text Embedding 3 small - 1534)
-PGVECTOR_FIELD_DIMENSIONS = int(env("PGVECTOR_FIELD_DIMENSIONS", default=1534))
+# Set PGVECTOR vector field dimension based on embedding model (Default: OpenAI - Text Embedding 3 small - 1536)
+PGVECTOR_FIELD_DIMENSIONS = int(env("PGVECTOR_FIELD_DIMENSIONS", default=1536))
