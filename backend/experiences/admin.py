@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Code, Experience, Project, Keyword, Organization
+from .models import Code, Experience, Project, Keyword, Organization, ExperienceKeyword
 from .utils import generate_project_experience
 
 
@@ -14,4 +14,12 @@ class ProjectAdmin(admin.ModelAdmin):
         generate_project_experience(obj)
 
 
-admin.site.register([Code, Experience, Keyword, Organization])
+class ExperienceKeywordInline(admin.TabularInline):
+    model = ExperienceKeyword
+    extra = 1
+
+@admin.register(Experience)
+class ExperienceAdmin(admin.ModelAdmin):
+    inlines = [ExperienceKeywordInline]
+
+admin.site.register([Code, Keyword, Organization])

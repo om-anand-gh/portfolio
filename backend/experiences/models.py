@@ -46,16 +46,26 @@ class Project(models.Model):
         return f"{self.name}, {self.organization}"
 
 
+
+
 class Experience(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    keywords = models.ManyToManyField(Keyword)
+    keywords = models.ManyToManyField(Keyword, through='ExperienceKeyword')
     ordering = models.PositiveIntegerField(default=0)
     content = models.TextField()
     embedding = DefaultVectorField(null=True, default=None)
 
     def __str__(self):
         return f"{self.project} - {self.ordering} - {self.content}"
+
+class ExperienceKeyword(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
+    keyword = models.ForeignKey(Keyword, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("experience", "keyword")
 
 
 class Code(models.Model):

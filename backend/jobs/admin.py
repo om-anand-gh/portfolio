@@ -12,7 +12,7 @@ class JobForm(forms.ModelForm):
         cleaned_data = super().clean()
         title = cleaned_data.get("title")
         company = cleaned_data.get("company")
-        locations = cleaned_data.get("locations")  # This works — it's populated here
+        locations = cleaned_data.get("locations")
 
         if title and company and locations:
             exclude_id = self.instance.pk if self.instance else None
