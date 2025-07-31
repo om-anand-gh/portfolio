@@ -34,7 +34,7 @@ class Organization(models.Model):
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=255, unique=True, null=False)
-    organization = models.OneToOneField(Organization, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     role = models.CharField(max_length=255, null=False)
     start_date = models.DateField()
     end_date = models.DateField(null=True)

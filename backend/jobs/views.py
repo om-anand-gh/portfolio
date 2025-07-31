@@ -8,7 +8,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from utils.embedding import generate_embeddings
+from utils.llm import generate_embeddings
 from utils.text import extract_lines
 
 from .models import Job, JobEmbedding, Country, Province
