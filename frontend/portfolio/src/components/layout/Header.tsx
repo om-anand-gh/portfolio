@@ -11,7 +11,6 @@ import {
   LinkedinLogoIcon,
   EnvelopeSimpleIcon,
 } from "@/assets/icons";
-import { WarmupStatus } from "./WarmupStatus";
 
 export function Header() {
   return (
@@ -25,7 +24,6 @@ export function Header() {
       </NavigationMenu>
       {/* Right-side icons */}
       <div className="ml-auto flex items-center space-x-2">
-        <WarmupStatus />
         <Button asChild aria-label="GitHub" variant="outline">
           <a
             href="https://github.com/om-anand-gh"
