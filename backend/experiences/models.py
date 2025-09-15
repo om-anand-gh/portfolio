@@ -41,12 +41,10 @@ class Project(models.Model):
     description = models.TextField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
     content = models.TextField(default="")
+    cleaned_content = models.TextField(default="", blank=True)
 
     def __str__(self):
         return f"{self.name}, {self.organization}"
-
-
-
 
 class Experience(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
