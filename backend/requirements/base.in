@@ -22,3 +22,5 @@ whitenoise
 
 # Optional dependencies (remove if not always needed)
 openai
+
+instructor

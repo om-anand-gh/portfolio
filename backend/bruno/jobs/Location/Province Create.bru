@@ -1,0 +1,15 @@
+meta {
+  name: Province Create
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8000/api/jobs/location/province/?country_code=CA
+  body: none
+  auth: inherit
+}
+
+params:query {
+  country_code: CA
+}

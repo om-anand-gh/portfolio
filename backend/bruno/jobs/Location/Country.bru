@@ -1,0 +1,18 @@
+meta {
+  name: Country
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/api/jobs/location/country/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Canada",
+    "code": "CA"
+  }
+}

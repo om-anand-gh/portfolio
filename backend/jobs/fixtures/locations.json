@@ -1,0 +1,240 @@
+[
+  {
+    "model": "jobs.country",
+    "pk": "32729972-ddf9-490d-a7db-6ffceba4318a",
+    "fields": {
+      "name": "Canada",
+      "code": "CA"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "002dc570-ac3a-4480-805e-9a69655623de",
+    "fields": {
+      "name": "Manitoba",
+      "code": "MB",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "1f30ad8b-8f52-4344-a75c-7fff0293606f",
+    "fields": {
+      "name": "Yukon",
+      "code": "YT",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "3d6082af-679f-4806-a2fa-cfab880b71b2",
+    "fields": {
+      "name": "Newfoundland and Labrador",
+      "code": "NL",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "3ffa08e1-d0c3-4352-8117-24917c3926af",
+    "fields": {
+      "name": "Quebec",
+      "code": "QC",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "40fd01d6-2d23-4fb5-8a00-98839564b26b",
+    "fields": {
+      "name": "British Columbia",
+      "code": "BC",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "436f23e1-9369-4501-8d1d-21c01d2329be",
+    "fields": {
+      "name": "Ontario",
+      "code": "ON",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "4a086aba-b09c-4fbc-8499-c432c6950707",
+    "fields": {
+      "name": "Remote",
+      "code": "R",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "4c68d42d-85a9-4d2f-8e80-e4e30ab2dc17",
+    "fields": {
+      "name": "Saskatchewan",
+      "code": "SK",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "7e90ee76-f842-4cc9-ad94-eb40cba60f14",
+    "fields": {
+      "name": "Nunavut",
+      "code": "NU",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "a38f61ba-0024-469a-8786-e611d41ffe76",
+    "fields": {
+      "name": "Northwest Territories",
+      "code": "NT",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "ad654ae8-f55e-4729-a56b-a9df6de33d48",
+    "fields": {
+      "name": "Nova Scotia",
+      "code": "NS",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "b9ee020f-6d01-41e2-83a5-4f60ca0b0944",
+    "fields": {
+      "name": "Alberta",
+      "code": "AB",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "c0ea7665-ecaa-45cc-a73a-a7e00e162747",
+    "fields": {
+      "name": "New Brunswick",
+      "code": "NB",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.province",
+    "pk": "d2ca0783-641f-4db2-9862-bb5003024b7b",
+    "fields": {
+      "name": "Prince Edward Island",
+      "code": "PE",
+      "country": "32729972-ddf9-490d-a7db-6ffceba4318a"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "27889b76-ba1f-4c9b-9b6a-83ec85c95848",
+    "fields": {
+      "city": "Montreal",
+      "province": "3ffa08e1-d0c3-4352-8117-24917c3926af"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "2e6ee80d-1bac-4e17-879a-25aa449ba613",
+    "fields": {
+      "city": "Waterloo",
+      "province": "436f23e1-9369-4501-8d1d-21c01d2329be"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "4a65d5bd-3bad-4985-b732-36451f2c0f8c",
+    "fields": {
+      "city": "Stellarton",
+      "province": "ad654ae8-f55e-4729-a56b-a9df6de33d48"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "7002f66a-c3ee-4378-9f0c-a3c113b9f0f1",
+    "fields": {
+      "city": "Toronto",
+      "province": "436f23e1-9369-4501-8d1d-21c01d2329be"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "788e6e4a-54af-4b5c-b20c-6acbd1357478",
+    "fields": {
+      "city": "Vancouver",
+      "province": "40fd01d6-2d23-4fb5-8a00-98839564b26b"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "9b9dfd44-9a37-4dcf-94df-abb220c5b856",
+    "fields": {
+      "city": "Calgary",
+      "province": "b9ee020f-6d01-41e2-83a5-4f60ca0b0944"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "a6935c3b-2452-4746-8195-5acb49363749",
+    "fields": {
+      "city": "Remote",
+      "province": "4a086aba-b09c-4fbc-8499-c432c6950707"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "c6ab966d-23c8-444a-81cc-50e73bca29a9",
+    "fields": {
+      "city": "Ottawa",
+      "province": "436f23e1-9369-4501-8d1d-21c01d2329be"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "d27c2386-bcb7-4523-b61a-832ed47d08b0",
+    "fields": {
+      "city": "Québec City",
+      "province": "3ffa08e1-d0c3-4352-8117-24917c3926af"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "daa657f2-2519-42ea-a322-a1ab23d7eb3a",
+    "fields": {
+      "city": "Sudbury",
+      "province": "436f23e1-9369-4501-8d1d-21c01d2329be"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "e344878e-0973-4fed-85d4-645b73ef13d1",
+    "fields": {
+      "city": "Edmonton",
+      "province": "b9ee020f-6d01-41e2-83a5-4f60ca0b0944"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "e53c67e7-26da-4e7d-b98e-916bd811fd2e",
+    "fields": {
+      "city": "Timmins",
+      "province": "ad654ae8-f55e-4729-a56b-a9df6de33d48"
+    }
+  },
+  {
+    "model": "jobs.location",
+    "pk": "eddf747a-05ce-4e8d-959a-a036636fdb77",
+    "fields": {
+      "city": "Halifax",
+      "province": "ad654ae8-f55e-4729-a56b-a9df6de33d48"
+    }
+  }
+]

@@ -1,0 +1,18 @@
+meta {
+  name: Similarity Search
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/api/jobs/similarity-search/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "question": "What azure skills are required?",
+    "top_n": 10
+  }
+}
