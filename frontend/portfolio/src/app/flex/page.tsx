@@ -364,6 +364,21 @@ export default function FlexPage() {
             </div>
           </blockquote>
         </div>
+        
+        {/* Video Section - Fallback if Instagram post doesn't load */}
+        <div className="flex justify-center items-center py-8">
+          <div className="w-full max-w-2xl">
+            <video
+              className="w-full h-auto rounded-lg shadow-lg"
+              controls
+              playsInline
+              preload="metadata"
+            >
+              <source src="/videos/GlaDOS.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
       </div>
       <Script
         src="//www.instagram.com/embed.js"
