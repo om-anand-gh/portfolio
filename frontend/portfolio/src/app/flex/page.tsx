@@ -30,7 +30,7 @@ export default function FlexPage() {
   const handleElementSelect = (element: Element) => {
     setSelectedElement(element);
     setError("");
-    
+
     if (element === "fire") {
       setIsAuthenticated(true);
       sessionStorage.setItem("flex_authenticated", "true");
@@ -364,8 +364,11 @@ export default function FlexPage() {
             </div>
           </blockquote>
         </div>
-        
-        {/* Video Section - Fallback if Instagram post doesn't load */}
+        <Script
+          src="//www.instagram.com/embed.js"
+          strategy="afterInteractive"
+          async
+        />
         <div className="flex justify-center items-center py-8">
           <div className="w-full max-w-2xl">
             <video
@@ -374,17 +377,12 @@ export default function FlexPage() {
               playsInline
               preload="metadata"
             >
-              <source src="/videos/GlaDOS.mp4" type="video/mp4" />
+              <source src="/videos/GlaDOS.webm" type="video/webm" />
               Your browser does not support the video tag.
             </video>
           </div>
         </div>
       </div>
-      <Script
-        src="//www.instagram.com/embed.js"
-        strategy="afterInteractive"
-        async
-      />
     </div>
   );
 }
