@@ -369,19 +369,6 @@ export default function FlexPage() {
           strategy="afterInteractive"
           async
         />
-        <div className="flex justify-center items-center py-8">
-          <div className="w-full max-w-2xl">
-            <video
-              className="w-full h-auto rounded-lg shadow-lg"
-              controls
-              playsInline
-              preload="metadata"
-            >
-              <source src="/videos/GlaDOS.webm" type="video/webm" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
       </div>
     </div>
   );
